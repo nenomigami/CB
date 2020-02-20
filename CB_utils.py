@@ -138,5 +138,36 @@ def plot_learning_curve(result, title = "", plot = True):
             plt.title(title)
     return df
 
+def plot_feature_distribution(df, features, target = None, save = False, filename = ""):
+    """
+    feature들의 histogram 그려주는 함수
+    argument:
+        df - (pd.dataframe) DataFrame
+        features - 그릴 feature 들
+    """
+    if target != None:
+        ntarget = df[target].value_counts().keys().values #(string np.array) target feature의 class 확인
+        subdf = [df.loc[df[target] == label] for label in ntarget] #(df list) df grouped by target, ntarget key 순서
+    i = 0
+    plt.figure()
+    fig, ax = plt.subplots(8,8,figsize=(24,30))
+
+    for feature in features:
+        i += 1
+        plt.subplot(8,8,i)
+        if target != None:
+            for _i,label in enumerate(ntarget):
+                sns.distplot(subdf[_i][feature], hist=True,label=label)
+        else:
+            for _i,label in enumerate(ntarget):
+                sns.distplot(subdf[_i][feature], hist=True)
+        plt.xlabel(feature, fontsize=9)
+        locs, labels = plt.xticks()
+        plt.tick_params(axis='x', which='major', labelsize=13, pad=0)
+        plt.tick_params(axis='y', which='major', labelsize=10)
+        #plt.legend()
+    if save == True:
+        plt.savefig(filename)
+
 if __name__ == "__main__":
     pass

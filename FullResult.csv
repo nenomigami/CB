@@ -1,0 +1,4 @@
+filename,training_loss,validation_loss,public_score,description
+submission2.csv,0.188192655,0.366213604,0.375782785,{'iterations': 10000}
+submission3.csv,0.186543252,0.358521515,0.376195,"{'iterations': 10000, 'cat_features': ['fiberID']}"
+,,,,
